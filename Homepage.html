@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+    <style>
+        body {
+            background-color: #252222;
+            color: rgb(237, 237, 237);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .sidebar-toggle-btn {
+            display: none;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar-toggle-btn {
+                display: block;
+                background-color: transparent;
+                color: #fff;
+                border: none;
+                padding: 10px;
+                font-size: 1.5rem;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1050;
+            }
+
+            .sidebar {
+                display: none !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 15.625rem;
+                height: 100vh;
+                background-color: #252222;
+                z-index: 1040;
+                padding-top: 3rem;
+                overflow-y: auto;
+                transition: transform 0.3s ease-in-out;
+                border-right: 1px solid #444;
+            }
+
+            .sidebar-inner {
+                padding-top: 4.5rem !important; 
+            }
+
+            .sidebar.active {
+                display: block !important;
+            }
+
+            .col-sm-7 {
+                margin-left: 0 !important;
+                border-right: none;
+                width: 100%;
+            }
+        }
+
+        .fs-33 { font-size: 2.0625rem; }
+        .fs-30 { font-size: 1.875rem; }
+        .fs-27 { font-size: 1.6875rem; }
+        .fs-23 { font-size: 1.4375rem; }
+        .fs-21 { font-size: 1.313rem; }
+        .fs-20 { font-size: 1.25rem; }
+        .fs-14 { font-size: 0.875rem; }
+
+        .container-fluid {
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .row {
+            height: 100%;
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .border-right-custom {
+            border-right: 0.125rem solid #676666;
+        }
+
+        .col-sm-7 {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .scroll-posts {
+            flex-grow: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+
+        .scroll-posts::-webkit-scrollbar {
+            display: none;
+        }
+
+        .post {
+            border-bottom: 0.0625rem solid #676666;
+            max-height: 29rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .post-inner {
+            padding: 1rem 4rem 4rem;
+        }
+
+        .profile-pic {
+            width: 3.5rem;
+            height: 3.5rem;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .post .username {
+            margin-left: 1rem;
+            align-self: flex-end;
+            font-size: 1.313rem;
+        }
+
+        .custom-font{
+            font-family: 'Cascadia Code', 'Cascadia Mono', monospace;
+        }
+
+        .post img.post-image {
+            width: 47rem;
+            height: 16rem;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        @media (max-width: 767px) {
+            .post img.post-image {
+                width: 100%;
+                height: auto;
+                max-width: 100%;
+            }
+        }
+
+        .col-12 {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        img.icon {
+            width: 2.0625rem;
+            height: 2.0625rem;
+        }
+
+        .icon-33 {
+            font-size: 2.0625rem;
+        }
+
+        .col-sm-3 {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .col-sm-3 .scroll-posts {
+            height: 100vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .col-sm-3 .scroll-posts::-webkit-scrollbar {
+            display: none;
+        }
+
+        .custom-white {
+            color: rgb(237, 237, 237);
+        }
+
+        a{
+        text-decoration: none;
+        color: rgb(237, 237, 237);
+        }
+
+        a.hover-box {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 0.625rem;
+            transition: background-color 0.2s ease;
+            text-decoration: none;
+            color: rgb(237, 237, 237);
+        }
+
+        a.hover-box:hover,a.hover-box:focus {
+            background-color: #3a3a3a;
+        }
+
+        a:hover{
+            color: rgb(237, 237, 237);
+        }
+
+        .rounded-border-custom {
+            border: 0.125rem solid #676666;
+            border-radius: 0.625rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="sidebar-toggle-btn" onclick="toggleSidebar()">☰</button>
+    <div class="container-fluid">
+        <div class="row row-relative">
+            <div class="col-sm-2 border-right-custom sidebar ps-4 pt-3 d-none d-sm-block">
+                <div class="sidebar-inner">
+                    <h1 class="fs-33">Logo</h1>
+                    <div class="pt-3">
+                        <p>
+                            <a href="Homepage.html" class="hover-box gap-3 fs-23 text-white text-decoration-none">
+                                <img src="icons/house.png" alt="house" class="icon"/>
+                                <span class="fw-bold">Home</span>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            <a href="Search.html" class="hover-box gap-3 fs-23 text-decoration-none custom-white">
+                                <img src="Icons/search.png" alt="search" class="icon"/>
+                                Search
+                            </a>
+                        </p>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            <a href="Message.html" class="hover-box gap-3 fs-23 text-decoration-none custom-white">
+                                <span class="material-icons icon-33">chat_bubble_outline</span>
+                                Messages
+                            </a>
+                        </p>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            <a href="Notifications.html" class="hover-box gap-3 fs-23 text-decoration-none custom-white">
+                                <img src="Icons/Bell.png" alt="Notifications" class="icon"/>
+                                Notifications
+                            </a>
+                        </p>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            <a href="Post.html" class="hover-box gap-3 fs-23 text-decoration-none custom-white">
+                                <img src="Icons/post.png" alt="post" class="icon" class="icon"/>
+                                Post
+                            </a>
+                        </p>
+                    </div>
+                    <div class="pt-3">
+                        <p>
+                            <a href="Profile.html" class="hover-box gap-2 fs-23 text-decoration-none custom-white">
+                                <img src="Icons/profile.jpg" alt="profile" class="rounded-circle" style="width: 44px; height: 44px;" />
+                                Profile
+                            </a>
+                        </p>
+                    </div>
+                    <div style="margin-top: 5.625rem;">
+                        <p>
+                            <a href="More.html" class="hover-box text-decoration-none custom-white">
+                                <img src="Icons/more.png" alt="more" style="width: 44px; height: 44px;"/>
+                                <span class="ps-2">More</span>
+                            </a>
+                        </p>
+                    </div>
+                    <div>
+                        <a href="Aboutme.html" class="d-flex text-decoration-none custom-white">
+                            <p class="d-inline-flex fs-14 m-0">About The Company</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+    <div class="col-12 col-sm-7 border-right-custom">
+        <div class="scroll-posts">
+            <div class="post">
+                <div class="post-inner">
+                    <div class="d-flex px-3">
+                        <div class="profile-pic"></div>
+                        <span class="fw-bold username">username</span>
+                    </div>
+                    <p class="mt-2 mb-0 pt-3 fs-20 ps-3">Lorem ipsum dolor sit ametc</p>
+                    <img src="Icons/pic.jpg" alt="post pic" class="post-image px-3">
+                    <div class="d-flex justify-content-between align-items-center px-3 py-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="material-icons" style="font-size: 1.5rem;">favorite_border</span>
+                            <span class="custom-font">1 Likes</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="material-icons" style="font-size: 1.5rem;">chat_bubble_outline</span>
+                            <span class="custom-font">1 comments</span>
+                        </div>
+                        <div>
+                            <span class="material-icons" style="font-size: 1.5rem;">bookmark_border</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-inner">
+                    <div class="d-flex ps-3">
+                        <div class="profile-pic"></div>
+                        <span class="fw-bold username">username</span>
+                    </div>
+                    <p class="mt-2 mb-0 pt-3 fs-20 ps-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias deserunt inventore minus delectus, fugit nobis atque quia ducimus perferendis explicabo?</p>
+                    <div class="d-flex justify-content-between align-items-center px-3 pt-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="material-icons" style="font-size: 1.5rem;">favorite_border</span>
+                            <span class="custom-font">1 Likes</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="material-icons" style="font-size: 1.5rem;">chat_bubble_outline</span>
+                            <span class="custom-font">1 comments</span>
+                        </div>
+                        <div>
+                            <span class="material-icons" style="font-size: 1.5rem;">bookmark_border</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post">
+                <div class="post-inner">
+                    <div class="d-flex ps-3">
+                        <div class="profile-pic"></div>
+                        <span class="fw-bold username">username</span>
+                    </div>
+                    <p class="mt-2 mb-0 pt-3 fs-20 ps-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo quibusdam esse nesciunt, quae aperiam ad sapiente aliquam nemo exercitationem excepturi, tempore quas. Beatae autem ipsam natus quae culpa necessitatibus odit?</p>
+                    <div class="d-flex justify-content-between align-items-center px-3 pt-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="material-icons" style="font-size: 1.5rem;">favorite_border</span>
+                            <span class="custom-font">1 Likes</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="material-icons" style="font-size: 1.5rem;">chat_bubble_outline</span>
+                            <span class="custom-font">1 comments</span>
+                        </div>
+                        <div>
+                            <span class="material-icons" style="font-size: 1.5rem;">bookmark_border</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="d-none d-sm-block col-sm-3">
+            <div class="scroll-posts">
+                <div class="ps-3 pe-3" style="padding-top: 1rem;">
+                    <div class="rounded-border-custom my-3 ps-4">
+                        <p class="fs-30">Suggestion</p>
+                        <div class="d-flex pt-2">
+                            <div class="profile-pic"></div>
+                            <span class="fw-bold ms-3 align-self-center fs-21">username</span>
+                        </div>
+                        <div class="d-flex pt-5">
+                            <div class="profile-pic"></div>
+                            <span class="fw-bold ms-3 align-self-center fs-21">username</span>
+                        </div>
+                        <div class="d-flex pt-5 pb-4">
+                            <div class="profile-pic"></div>
+                            <span class="fw-bold ms-3 align-self-center fs-21">username</span>
+                        </div>
+                    </div>
+                    <div class="rounded-border-custom ps-4">
+                        <p class="fs-30">Trending</p>
+                        <p class="fs-27">#Text</p>
+                        <p class="fs-27">#Text</p>
+                        <p class="fs-27">#Text</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
